@@ -13,6 +13,10 @@
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.0",
+    "lodash": "^4.17.21",
+    "plotly.js-dist-min": "^3.3.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "sharp": "^0.34.3"
   }
 }

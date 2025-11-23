@@ -1,0 +1,497 @@
+---
+// No imports needed in frontmatter
+---
+
+<div class="w-full" id="windrose-root">
+    <!-- Controls Section -->
+    <div class="mb-6 mx-6">
+        <div class="flex items-center mb-2">
+            <h2>Configuration</h2>
+            <button
+                id="resetBtn"
+                class="ml-auto px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-600 focus:outline-none font-medium transition-colors"
+                style="display:none"
+            >
+                Reset
+            </button>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-4">
+            <div class="flex flex-wrap gap-4 items-center">
+                <label class="font-medium">Compass Bins:</label>
+                <select
+                    id="binCount"
+                    class="px-3 py-2 border border-gray-300 rounded-md w-20 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    <option value="4">4</option>
+                    <option value="8" selected>8</option>
+                    <option value="16">16</option>
+                </select>
+                <label class="font-medium ml-4">Min Speed:</label>
+                <input
+                    type="number"
+                    id="minSpeed"
+                    value="0"
+                    min="0"
+                    step="0.5"
+                    class="px-3 py-2 border border-gray-300 rounded-md w-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <label class="font-medium ml-4">Max Speed:</label>
+                <input
+                    type="number"
+                    id="maxSpeed"
+                    value="10"
+                    min="1"
+                    step="0.5"
+                    class="px-3 py-2 border border-gray-300 rounded-md w-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <label class="font-medium ml-4">Bin Size:</label>
+                <input
+                    type="number"
+                    id="binSize"
+                    value="2"
+                    min="0.5"
+                    step="0.5"
+                    class="px-3 py-2 border border-gray-300 rounded-md w-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Controls Section -->
+    <div
+        id="data-controls-section"
+        class="flex justify-center items-center mb-6"
+    >
+        <div class="flex items-center" id="data-controls">
+            <label
+                for="fileUpload"
+                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-800 focus:outline-none cursor-pointer font-medium transition-colors"
+            >
+                📁 Upload CSV File
+            </label>
+            <input type="file" id="fileUpload" accept=".csv" class="hidden" />
+            <button
+                id="generateDataBtn"
+                class="px-3 py-2 ml-4 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 hover:scale-110 hover:shadow-lg focus:outline-none font-medium text-xl transition-all duration-150"
+                title="Generate Sample Data"
+                style="transition: transform 0.15s, box-shadow 0.15s;"
+            >
+                🎲
+            </button>
+        </div>
+    </div>
+
+    <!-- Table and Graph Side by Side (conditionally rendered) -->
+    <div id="windrose-visuals" style="display:none">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 mx-6">
+            <!-- Table Section -->
+            <div>
+                <h2>Table</h2>
+                <div
+                    class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm"
+                    style="height:auto;overflow:visible;"
+                >
+                    <div
+                        id="windrose-table-plot"
+                        style="width: 100%;height:auto;overflow:visible;"
+                    >
+                    </div>
+                </div>
+            </div>
+            <!-- Chart Section -->
+            <div>
+                <h2>Chart</h2>
+                <div
+                    class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm"
+                >
+                    <div id="windrose-plot" style="height: 600px; width: 100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instructions Section -->
+    <div
+        class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 shadow-sm mx-6"
+    >
+        <h3 class="text-lg font-medium text-blue-800 mb-2">Instructions:</h3>
+        <ul class="text-blue-700 space-y-1">
+            <li>
+                • Configure compass bins (4, 8, 16) and wind speed bin
+                parameters
+            </li>
+            <li>
+                • Generate sample data or upload a CSV file with columns: <code
+                    >wind_direction</code
+                > (0-360°) and <code>wind_speed</code> (m/s)
+            </li>
+            <li>
+                • The table shows the percentage of data points in each
+                direction/speed bin
+            </li>
+            <li>
+                • The wind rose diagram displays the frequency distribution with
+                each color representing a speed bin
+            </li>
+            <li>• Use Plotly controls to download the chart as PNG</li>
+        </ul>
+    </div>
+</div>
+<script>
+    import Plotly from "plotly.js-dist-min";
+
+    const COMPASS_BINS: Record<number, string[]> = {
+        4: ["N", "E", "S", "W"],
+        8: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+        16: [
+            "N",
+            "NNE",
+            "NE",
+            "ENE",
+            "E",
+            "ESE",
+            "SE",
+            "SSE",
+            "S",
+            "SSW",
+            "SW",
+            "WSW",
+            "W",
+            "WNW",
+            "NW",
+            "NNW",
+        ],
+    };
+
+    interface WindDataPoint {
+        wind_direction: number;
+        wind_speed: number;
+    }
+
+    let binCount = 8;
+    let minSpeed = 0;
+    let maxSpeed = 10;
+    let binSize = 2;
+    let windData = [];
+
+    // Generate fake wind data
+    function generateSampleWindData(count: number): WindDataPoint[] {
+        const data: WindDataPoint[] = [];
+
+        for (let i = 0; i < count; i++) {
+            // Generate wind direction with bias towards certain directions (more realistic)
+            // Favor E, SE directions
+            const rand = Math.random();
+            let direction: number;
+
+            if (rand < 0.3) {
+                // 30% chance: East (67.5° to 112.5°)
+                direction = 67.5 + Math.random() * 45;
+            } else if (rand < 0.5) {
+                // 20% chance: SE (112.5° to 157.5°)
+                direction = 112.5 + Math.random() * 45;
+            } else if (rand < 0.65) {
+                // 15% chance: S (157.5° to 202.5°)
+                direction = 157.5 + Math.random() * 45;
+            } else if (rand < 0.75) {
+                // 10% chance: SW (202.5° to 247.5°)
+                direction = 202.5 + Math.random() * 45;
+            } else {
+                // 25% chance: Other directions
+                direction = Math.random() * 360;
+            }
+
+            // Generate wind speed with exponential-like distribution (more low speeds, fewer high speeds)
+            const speedRand = Math.random();
+            const speed = Math.pow(speedRand, 1.5) * maxSpeed;
+
+            data.push({
+                wind_direction: direction % 360,
+                wind_speed: Math.max(0, speed),
+            });
+        }
+
+        return data;
+    }
+
+    // Determine which compass bin a direction falls into
+    function getDirectionBin(direction: number, bins: string[]): string {
+        const binSize = 360 / bins.length;
+        const offset = binSize / 2;
+
+        // Adjust for North being at 0°/360°
+        const adjusted = (direction + offset) % 360;
+        const binIndex = Math.floor(adjusted / binSize);
+
+        return bins[binIndex];
+    }
+
+    // Determine which speed bin a speed falls into
+    function getSpeedBin(speed: number): string | null {
+        if (speed < minSpeed || speed > maxSpeed) return null;
+
+        const binIndex = Math.floor((speed - minSpeed) / binSize);
+        const binStart = minSpeed + binIndex * binSize;
+        const binEnd = Math.min(binStart + binSize, maxSpeed);
+
+        return `${binStart.toFixed(1)}-${binEnd.toFixed(1)}`;
+    }
+
+    // Process wind data into frequency table with percentages
+    function processWindData(data: WindDataPoint[]): Record<string, any>[] {
+        const directions = COMPASS_BINS[binCount];
+        const totalPoints = data.length;
+
+        // Initialize table with zeros
+        const table: Record<string, any>[] = directions.map((dir) => {
+            const row: Record<string, any> = { direction: dir };
+            const numBins = Math.ceil((maxSpeed - minSpeed) / binSize);
+            for (let i = 0; i < numBins; i++) {
+                const binStart = minSpeed + i * binSize;
+                const binEnd = Math.min(binStart + binSize, maxSpeed);
+                row[`${binStart.toFixed(1)}-${binEnd.toFixed(1)}`] = 0;
+            }
+            return row;
+        });
+
+        // Count data points in each bin
+        data.forEach((point) => {
+            const dirBin = getDirectionBin(point.wind_direction, directions);
+            const speedBin = getSpeedBin(point.wind_speed);
+
+            if (speedBin) {
+                const rowIndex = directions.indexOf(dirBin);
+                if (rowIndex !== -1) {
+                    table[rowIndex][speedBin]++;
+                }
+            }
+        });
+
+        // Convert counts to percentages
+        table.forEach((row) => {
+            Object.keys(row).forEach((key) => {
+                if (key !== "direction") {
+                    row[key] = ((row[key] / totalPoints) * 100).toFixed(2);
+                }
+            });
+        });
+
+        return table;
+    }
+
+    function renderWindrose(table: Record<string, any>[]) {
+        const colors = [
+            "#3182ce",
+            "#4299e1",
+            "#63b3ed",
+            "#90cdf4",
+            "#bee3f8",
+            "#e6f3ff",
+            "#fed7d7",
+            "#fbb6ce",
+        ];
+
+        const speedBins = Object.keys(table[0]).filter(
+            (key) => key !== "direction",
+        );
+
+        const traces = speedBins.map((speedBin: string, idx: number) => ({
+            r: table.map((row: Record<string, any>) =>
+                parseFloat(row[speedBin]),
+            ),
+            theta: table.map((row: Record<string, any>) => row.direction),
+            name: speedBin + " m/s",
+            type: "barpolar",
+            marker: {
+                color: colors[idx % colors.length],
+                line: { color: "white", width: 1 },
+            },
+        }));
+
+        const maxPercentage = Math.max(
+            ...table.map((row: Record<string, any>) =>
+                speedBins.reduce(
+                    (sum: number, bin: string) => sum + parseFloat(row[bin]),
+                    0,
+                ),
+            ),
+        );
+
+        const layout = {
+            title: "Wind Rose Diagram (Frequency Distribution %)",
+            font: { size: 14 },
+            polar: {
+                radialaxis: {
+                    visible: true,
+                    range: [0, Math.ceil(maxPercentage / 5) * 5],
+                    ticksuffix: "%",
+                },
+                angularaxis: {
+                    direction: "clockwise",
+                    period: binCount,
+                },
+            },
+            showlegend: true,
+            legend: { x: 1.1, y: 1 },
+            barmode: "stack",
+        };
+
+        Plotly.newPlot("windrose-plot", traces as any, layout as any, {
+            responsive: true,
+        });
+    }
+
+    function renderPlotlyTable(table) {
+        const speedBins = Object.keys(table[0]).filter(
+            (key) => key !== "direction",
+        );
+        const headerValues = [
+            "Direction",
+            ...speedBins.map((bin) => bin + " m/s"),
+        ];
+        const cellValues = [
+            table.map((row) => row.direction),
+            ...speedBins.map((bin) => table.map((row) => row[bin] + "%")),
+        ];
+        const rowCount = table.length;
+        const rowHeight = 40;
+        const totalHeight = rowHeight * (rowCount + 1.2); // +1 for header
+        // Set cell background: first column light grey, rest white
+        const cellFillColors = [
+            Array(rowCount).fill("#f3f4f6"), // Tailwind gray-100
+            ...Array(speedBins.length).fill(Array(rowCount).fill("#fff")),
+        ];
+        const data = [
+            {
+                type: "table",
+                header: {
+                    values: headerValues,
+                    align: Array(headerValues.length).fill("center"),
+                    line: { width: 1, color: "gray" },
+                    fill: {
+                        color: Array(headerValues.length).fill("lightblue"),
+                    },
+                    font: { family: "Arial", size: 14, color: "black" },
+                    height: rowHeight,
+                },
+                cells: {
+                    values: cellValues,
+                    align: Array(headerValues.length).fill("center"),
+                    line: { color: "gray", width: 1 },
+                    fill: { color: cellFillColors },
+                    font: { family: "Arial", size: 14, color: "black" },
+                    height: rowHeight,
+                },
+            },
+        ];
+        const layout = {
+            margin: { t: 2, l: 2, r: 2, b: 2 },
+            autosize: true,
+            width:
+                document.getElementById("windrose-table-plot")?.offsetWidth ||
+                600,
+            height: totalHeight,
+        };
+        Plotly.newPlot("windrose-table-plot", data, layout, {
+            responsive: true,
+        });
+    }
+
+    function updateVisualization() {
+        const visuals = document.getElementById("windrose-visuals");
+        const resetBtn = document.getElementById("resetBtn");
+        const generateDataBtn = document.getElementById("generateDataBtn");
+        const fileUploadLabel = document.querySelector(
+            "label[for='fileUpload']",
+        );
+        const dataControlsSection = document.getElementById(
+            "data-controls-section",
+        );
+        if (windData.length === 0) {
+            if (dataControlsSection) dataControlsSection.style.display = "flex";
+            if (visuals) visuals.style.display = "none";
+            if (resetBtn) resetBtn.style.display = "none";
+            if (generateDataBtn) generateDataBtn.style.display = "";
+            if (fileUploadLabel) fileUploadLabel.style.display = "";
+            return;
+        }
+        if (dataControlsSection) dataControlsSection.style.display = "none";
+        if (visuals) visuals.style.display = "block";
+        if (resetBtn) resetBtn.style.display = "inline-block";
+        if (generateDataBtn) generateDataBtn.style.display = "none";
+        if (fileUploadLabel) fileUploadLabel.style.display = "none";
+        const table = processWindData(windData);
+        renderWindrose(table);
+        renderPlotlyTable(table);
+    }
+
+    // Event listeners
+    document.getElementById("binCount")?.addEventListener("change", (e) => {
+        binCount = parseInt((e.target as HTMLSelectElement).value);
+        updateVisualization();
+    });
+
+    document.getElementById("minSpeed")?.addEventListener("input", (e) => {
+        minSpeed = parseFloat((e.target as HTMLInputElement).value);
+        updateVisualization();
+    });
+
+    document.getElementById("maxSpeed")?.addEventListener("input", (e) => {
+        maxSpeed = parseFloat((e.target as HTMLInputElement).value);
+        updateVisualization();
+    });
+
+    document.getElementById("binSize")?.addEventListener("input", (e) => {
+        binSize = parseFloat((e.target as HTMLInputElement).value);
+        updateVisualization();
+    });
+
+    document.getElementById("fileUpload")?.addEventListener("change", (e) => {
+        const file = (e.target as HTMLInputElement).files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const text = event.target?.result;
+                if (typeof text === "string") {
+                    const lines = text
+                        .split("\n")
+                        .filter((line) => line.trim() !== "");
+                    const uploadedData = lines.map((line) => {
+                        const [wind_direction, wind_speed] = line
+                            .split(",")
+                            .map((val) => parseFloat(val.trim()));
+                        return { wind_direction, wind_speed };
+                    });
+                    windData = uploadedData;
+                    updateVisualization();
+                }
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    document
+        .getElementById("generateDataBtn")
+        ?.addEventListener("click", () => {
+            windData = generateSampleWindData(500);
+            updateVisualization();
+        });
+
+    document.getElementById("resetBtn")?.addEventListener("click", () => {
+        windData = [];
+        binCount = 8;
+        minSpeed = 0;
+        maxSpeed = 10;
+        binSize = 2;
+        document.getElementById("binCount")!.value = "8";
+        document.getElementById("minSpeed")!.value = "0";
+        document.getElementById("maxSpeed")!.value = "10";
+        document.getElementById("binSize")!.value = "2";
+        updateVisualization();
+    });
+
+    // Initialize with sample data
+    windData = generateSampleWindData(500);
+    updateVisualization();
+</script>
