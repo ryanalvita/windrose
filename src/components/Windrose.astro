@@ -175,43 +175,18 @@
     let binSize = 2;
     let windData = [];
 
-    // Generate fake wind data
+    // Generate sample wind data
     function generateSampleWindData(count: number): WindDataPoint[] {
         const data: WindDataPoint[] = [];
-
         for (let i = 0; i < count; i++) {
-            // Generate wind direction with bias towards certain directions (more realistic)
-            // Favor E, SE directions
-            const rand = Math.random();
-            let direction: number;
-
-            if (rand < 0.3) {
-                // 30% chance: East (67.5° to 112.5°)
-                direction = 67.5 + Math.random() * 45;
-            } else if (rand < 0.5) {
-                // 20% chance: SE (112.5° to 157.5°)
-                direction = 112.5 + Math.random() * 45;
-            } else if (rand < 0.65) {
-                // 15% chance: S (157.5° to 202.5°)
-                direction = 157.5 + Math.random() * 45;
-            } else if (rand < 0.75) {
-                // 10% chance: SW (202.5° to 247.5°)
-                direction = 202.5 + Math.random() * 45;
-            } else {
-                // 25% chance: Other directions
-                direction = Math.random() * 360;
-            }
-
-            // Generate wind speed with exponential-like distribution (more low speeds, fewer high speeds)
+            const direction = Math.random() * 360;
             const speedRand = Math.random();
             const speed = Math.pow(speedRand, 1.5) * maxSpeed;
-
             data.push({
-                wind_direction: direction % 360,
+                wind_direction: direction,
                 wind_speed: Math.max(0, speed),
             });
         }
-
         return data;
     }
 
@@ -490,8 +465,4 @@
         document.getElementById("binSize")!.value = "2";
         updateVisualization();
     });
-
-    // Initialize with sample data
-    windData = generateSampleWindData(500);
-    updateVisualization();
 </script>
