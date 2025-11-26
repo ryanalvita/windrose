@@ -8,8 +8,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://windrose.github.io',
-  base: '/windrose-astro',
+  site: 'https://ryanalvita.github.io',
+  base: '/windrose',
   integrations: [mdx(), sitemap()],
 
   vite: {
