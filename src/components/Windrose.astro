@@ -546,6 +546,8 @@
         document.getElementById("minSpeed")!.value = "0";
         document.getElementById("maxSpeed")!.value = "10";
         document.getElementById("binSize")!.value = "2";
+        const fileInput = document.getElementById("fileUpload") as HTMLInputElement;
+        if (fileInput) fileInput.value = "";
         updateVisualization();
     });
 </script>
