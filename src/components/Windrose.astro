@@ -6,10 +6,10 @@
     <!-- Controls Section -->
     <div class="mb-6 mx-6">
         <div class="flex items-center mb-2">
-            <h2>Configuration</h2>
+            <h4>Configuration</h4>
             <button
                 id="resetBtn"
-                class="ml-auto px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-600 focus:outline-none font-medium transition-colors"
+                class="ml-auto px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-600 hover:shadow-lg hover:scale-105 focus:outline-none font-medium transition-all duration-150 cursor-pointer"
                 style="display:none"
             >
                 Reset
@@ -72,7 +72,7 @@
             <input type="file" id="fileUpload" accept=".csv" class="hidden" />
             <button
                 id="generateDataBtn"
-                class="px-3 py-2 ml-4 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 hover:scale-110 hover:shadow-lg focus:outline-none font-medium text-xl transition-all duration-150"
+                class="px-3 py-2 ml-4 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 hover:scale-110 hover:shadow-lg focus:outline-none font-medium text-xl transition-all duration-150 cursor-pointer ring-0"
                 title="Generate Sample Data"
                 style="transition: transform 0.15s, box-shadow 0.15s;"
             >
@@ -86,7 +86,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 mx-6">
             <!-- Table Section -->
             <div>
-                <h2>Table</h2>
+                <h4>Table</h4>
                 <div
                     class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm"
                     style="height:auto;overflow:visible;"
@@ -100,7 +100,7 @@
             </div>
             <!-- Chart Section -->
             <div>
-                <h2>Chart</h2>
+                <h4>Chart</h4>
                 <div
                     class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm"
                 >
@@ -115,7 +115,7 @@
     <div
         class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 shadow-sm mx-6"
     >
-        <h3 class="text-lg font-medium text-blue-800 mb-2">Instructions:</h3>
+        <h4 class="text-lg font-medium text-blue-800 mb-2">Instructions:</h4>
         <ul class="text-blue-700 space-y-1">
             <li>
                 • Configure compass points (4, 8, 16), minimum-maximum speed,
