@@ -9,8 +9,8 @@
             <h4>Configuration</h4>
             <button
                 id="resetBtn"
-                class="ml-auto px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-600 hover:shadow-lg hover:scale-105 focus:outline-none font-medium transition-all duration-150 cursor-pointer"
-                style="display:inline-block"
+                class="ml-auto px-2 py-1 bg-gray-400 text-white rounded-md hover:bg-gray-600 hover:shadow-lg hover:scale-105 focus:outline-none font-medium transition-all duration-150 cursor-pointer"
+                style="display:none"
             >
                 Reset
             </button>
@@ -391,7 +391,7 @@
         if (windData.length === 0) {
             if (dataControlsSection) dataControlsSection.style.display = "flex";
             if (visuals) visuals.style.display = "none";
-            if (resetBtn) resetBtn.style.display = "inline-block";
+            if (resetBtn) resetBtn.style.display = "none";
             if (generateDataBtn) generateDataBtn.style.display = "";
             if (fileUploadLabel) fileUploadLabel.style.display = "";
             return;
