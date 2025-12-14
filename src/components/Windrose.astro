@@ -53,6 +53,16 @@
                     step="0.5"
                     class="px-3 py-2 border border-gray-300 rounded-md w-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+                <div class="flex items-center gap-2 ml-4">
+                    <label class="font-medium">Direction:</label>
+                    <select
+                        id="directionMode"
+                        class="px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option value="to">To</option>
+                        <option value="from">From</option>
+                    </select>
+                </div>
                 <button
                     id="colorSchemeBtn"
                     class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-1 bg-white text-gray-700 border border-gray-300 rounded-md hover:bg-blue-100 hover:shadow-lg hover:scale-105 focus:outline-none font-medium transition-all duration-150 cursor-pointer flex items-center"
@@ -180,6 +190,7 @@
     let minSpeed = 0;
     let maxSpeed = 10;
     let binSize = 2;
+    let directionMode = 'to';
     let windData = [];
     // Plotly qualitative color schemes
     const COLOR_SCHEMES = {
@@ -230,6 +241,11 @@
         return `${binStart.toFixed(1)}-${binEnd.toFixed(1)}`;
     }
 
+    // Flip wind direction by 180 degrees (convert 'from' to 'to' or vice versa)
+    function flipWindDirection(direction: number): number {
+        return (direction + 180) % 360;
+    }
+
     // Process wind data into frequency table with percentages
     function processWindData(data: WindDataPoint[]): Record<string, any>[] {
         const directions = COMPASS_BINS[binCount];
@@ -249,7 +265,13 @@
 
         // Count data points in each bin
         data.forEach((point) => {
-            const dirBin = getDirectionBin(point.wind_direction, directions);
+            let direction = point.wind_direction;
+            
+            if (directionMode === 'from') {
+                direction = flipWindDirection(direction);
+            }
+            
+            const dirBin = getDirectionBin(direction, directions);
             const speedBin = getSpeedBin(point.wind_speed);
 
             if (speedBin) {
@@ -505,6 +527,11 @@
         updateVisualization();
     });
 
+    document.getElementById("directionMode")?.addEventListener("change", (e) => {
+        directionMode = (e.target as HTMLSelectElement).value;
+        updateVisualization();
+    });
+
     document.getElementById("fileUpload")?.addEventListener("change", (e) => {
         const file = (e.target as HTMLInputElement).files?.[0];
         if (file) {
@@ -542,10 +569,12 @@
         minSpeed = 0;
         maxSpeed = 10;
         binSize = 2;
+        directionMode = 'to';
         document.getElementById("binCount")!.value = "8";
         document.getElementById("minSpeed")!.value = "0";
         document.getElementById("maxSpeed")!.value = "10";
         document.getElementById("binSize")!.value = "2";
+        document.getElementById("directionMode")!.value = "to";
         const fileInput = document.getElementById("fileUpload") as HTMLInputElement;
         if (fileInput) fileInput.value = "";
         updateVisualization();
