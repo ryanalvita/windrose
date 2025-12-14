@@ -88,6 +88,15 @@
         class="flex justify-center items-center mb-6"
     >
         <div class="flex items-center" id="data-controls">
+            <a
+                href="/windrose/windrose_template.csv"
+                download
+                class="px-4 py-2 mr-4 bg-gray-300 text-black rounded-md hover:bg-gray-400 focus:outline-none cursor-pointer font-medium transition-colors"
+                style="color: black"
+                title="Download CSV Template"
+            >
+                📥 Download CSV Template
+            </a>
             <label
                 for="fileUpload"
                 class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-800 focus:outline-none cursor-pointer font-medium transition-colors"
@@ -140,9 +149,11 @@
             </li>
             <li>
                 • Upload a CSV file with columns: <code>wind_direction</code> (0-360°)
-                and <code>wind_speed</code> (m/s), or generate sample data by clicking
-                the 🎲 button
+                and <code>wind_speed</code> (m/s).
             </li>
+            <li>
+                • You can also download the CSV template, fill it with your data, 
+                and upload it back. 
             <li>
                 • The table shows the percentage of data points in each
                 direction/speed bin
