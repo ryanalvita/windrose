@@ -1,4 +1,3 @@
-
 # Windrose App
 
 This is a web application for visualizing windrose data, built with [Astro](https://astro.build/).

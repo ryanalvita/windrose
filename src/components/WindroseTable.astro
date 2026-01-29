@@ -4,22 +4,22 @@ const { tableData } = Astro.props;
 ---
 
 <div>
-    <h4>Table</h4>
+  <h4>Table</h4>
+  <div
+    class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm"
+    style="height:auto;overflow:visible;"
+  >
     <div
-        class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm"
-        style="height:auto;overflow:visible;"
+      id="windrose-table-plot"
+      style="width: 100%;height:auto;overflow:visible;"
     >
-        <div
-            id="windrose-table-plot"
-            style="width: 100%;height:auto;overflow:visible;"
-        >
-        </div>
     </div>
+  </div>
 </div>
 <script>
-    import Plotly from "plotly.js-dist-min";
-    // Render table using Plotly
-    if (tableData && tableData.length > 0) {
-        // ...existing renderPlotlyTable logic...
-    }
+  import Plotly from "plotly.js-dist-min";
+  // Render table using Plotly
+  if (tableData && tableData.length > 0) {
+    // ...existing renderPlotlyTable logic...
+  }
 </script>

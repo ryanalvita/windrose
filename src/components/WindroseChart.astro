@@ -4,25 +4,25 @@ const { tableData, binCount } = Astro.props;
 ---
 
 <div>
-    <h4>Chart</h4>
-    <div class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm">
-        <div id="windrose-plot" style="height: 600px; width: 100%"></div>
-    </div>
+  <h4>Chart</h4>
+  <div class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm">
+    <div id="windrose-plot" style="height: 600px; width: 100%"></div>
+  </div>
 </div>
 <script>
-    import Plotly from "plotly.js-dist-min";
-    if (tableData && tableData.length > 0) {
-        // ...existing renderWindrose logic...
-        const layout = {
-            // ...existing layout properties...
-            legend: {
-                x: 0.5,
-                y: -0.2,
-                xanchor: "center",
-                orientation: "h",
-            },
-            // ...existing code...
-        };
-        // ...existing code...
-    }
+  import Plotly from "plotly.js-dist-min";
+  if (tableData && tableData.length > 0) {
+    // ...existing renderWindrose logic...
+    const layout = {
+      // ...existing layout properties...
+      legend: {
+        x: 0.5,
+        y: -0.2,
+        xanchor: "center",
+        orientation: "h",
+      },
+      // ...existing code...
+    };
+    // ...existing code...
+  }
 </script>

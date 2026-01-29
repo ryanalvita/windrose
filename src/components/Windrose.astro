@@ -3,592 +3,664 @@
 ---
 
 <div class="w-full" id="windrose-root">
-    <!-- Controls Section -->
-    <div class="my-6 mx-6">
-        <div class="flex items-center mb-2">
-            <h4>Configuration</h4>
-            <button
-                id="resetBtn"
-                class="ml-auto px-2 py-1 bg-gray-400 text-white rounded-md hover:bg-gray-600 hover:shadow-lg hover:scale-105 focus:outline-none font-medium transition-all duration-150 cursor-pointer"
-                style="display:none"
-            >
-                Reset
-            </button>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-4">
-            <div class="flex flex-wrap gap-4 items-center relative">
-                <label class="font-medium">Compass Points</label>
-                <select
-                    id="binCount"
-                    class="px-3 py-2 border border-gray-300 rounded-md w-20 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                    <option value="4">4</option>
-                    <option value="8" selected>8</option>
-                    <option value="16">16</option>
-                </select>
-                <label class="font-medium ml-4">Min. Speed</label>
-                <input
-                    type="number"
-                    id="minSpeed"
-                    value="0"
-                    min="0"
-                    step="0.5"
-                    class="px-3 py-2 border border-gray-300 rounded-md w-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <label class="font-medium ml-4">Max. Speed</label>
-                <input
-                    type="number"
-                    id="maxSpeed"
-                    value="10"
-                    min="1"
-                    step="0.5"
-                    class="px-3 py-2 border border-gray-300 rounded-md w-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <label class="font-medium ml-4">Bin Size</label>
-                <input
-                    type="number"
-                    id="binSize"
-                    value="2"
-                    min="0.5"
-                    step="0.5"
-                    class="px-3 py-2 border border-gray-300 rounded-md w-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <div class="flex items-center gap-2 ml-4">
-                    <label class="font-medium">Direction:</label>
-                    <select
-                        id="directionMode"
-                        class="px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        <option value="to">To</option>
-                        <option value="from">From</option>
-                    </select>
-                </div>
-                <button
-                    id="generateDataBtn"
-                    class="absolute right-14 top-1/2 -translate-y-1/2 px-2 py-1 bg-white text-gray-700 border border-gray-300 rounded-md hover:bg-blue-100 hover:shadow-lg hover:scale-105 focus:outline-none font-medium transition-all duration-150 cursor-pointer flex items-center"
-                    title="Generate Sample Data"
-                    style="transition: transform 0.15s, box-shadow 0.15s;"
-                >
-                    🎲
-                </button>
-                <button
-                    id="colorSchemeBtn"
-                    class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-1 bg-white text-gray-700 border border-gray-300 rounded-md hover:bg-blue-100 hover:shadow-lg hover:scale-105 focus:outline-none font-medium transition-all duration-150 cursor-pointer flex items-center"
-                    title="Select Color Scheme"
-                >
-                    🎨
-                </button>
-            </div>
-        </div>
+  <!-- Controls Section -->
+  <div class="my-6 mx-6">
+    <div class="flex items-center mb-2">
+      <h4>Configuration</h4>
+      <button
+        id="resetBtn"
+        class="ml-auto px-2 py-1 bg-gray-400 text-white rounded-md hover:bg-gray-600 hover:shadow-lg hover:scale-105 focus:outline-none font-medium transition-all duration-150 cursor-pointer"
+        style="display:none"
+      >
+        Reset
+      </button>
     </div>
+    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-4">
+      <div class="flex flex-wrap gap-4 items-center relative">
+        <label class="font-medium">Compass Points</label>
+        <select
+          id="binCount"
+          class="px-3 py-2 border border-gray-300 rounded-md w-20 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="4">4</option>
+          <option value="8" selected>8</option>
+          <option value="16">16</option>
+        </select>
+        <label class="font-medium ml-4">Min. Speed</label>
+        <input
+          type="number"
+          id="minSpeed"
+          value="0"
+          min="0"
+          step="0.5"
+          class="px-3 py-2 border border-gray-300 rounded-md w-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <label class="font-medium ml-4">Max. Speed</label>
+        <input
+          type="number"
+          id="maxSpeed"
+          value="10"
+          min="1"
+          step="0.5"
+          class="px-3 py-2 border border-gray-300 rounded-md w-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <label class="font-medium ml-4">Bin Size</label>
+        <input
+          type="number"
+          id="binSize"
+          value="2"
+          min="0.5"
+          step="0.5"
+          class="px-3 py-2 border border-gray-300 rounded-md w-20 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <div class="flex items-center gap-2 ml-4">
+          <label class="font-medium">Direction:</label>
+          <select
+            id="directionMode"
+            class="px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="to">To</option>
+            <option value="from">From</option>
+          </select>
+        </div>
+        <button
+          id="generateDataBtn"
+          class="absolute right-14 top-1/2 -translate-y-1/2 px-2 py-1 bg-white text-gray-700 border border-gray-300 rounded-md hover:bg-blue-100 hover:shadow-lg hover:scale-105 focus:outline-none font-medium transition-all duration-150 cursor-pointer flex items-center"
+          title="Generate Sample Data"
+          style="transition: transform 0.15s, box-shadow 0.15s;"
+        >
+          🎲
+        </button>
+        <button
+          id="colorSchemeBtn"
+          class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-1 bg-white text-gray-700 border border-gray-300 rounded-md hover:bg-blue-100 hover:shadow-lg hover:scale-105 focus:outline-none font-medium transition-all duration-150 cursor-pointer flex items-center"
+          title="Select Color Scheme"
+        >
+          🎨
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <!-- Data Controls Section -->
-    <div
-        id="data-controls-section"
-        class="flex justify-center items-center mb-6"
-    >
-        <div class="flex items-center" id="data-controls">
-            <a
-                href="/windrose/windrose_template.csv"
-                download
-                class="px-4 py-2 mr-4 bg-gray-300 text-black rounded-md hover:bg-gray-400 focus:outline-none cursor-pointer font-medium transition-colors"
-                style="color: black"
-                title="Download CSV Template"
-            >
-                📥 Download CSV Template
-            </a>
-            <label
-                for="fileUpload"
-                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-800 focus:outline-none cursor-pointer font-medium transition-colors"
-            >
-                📁 Upload CSV File
-            </label>
-            <input type="file" id="fileUpload" accept=".csv" class="hidden" />
-        </div>
+  <!-- Data Controls Section -->
+  <div id="data-controls-section" class="flex justify-center items-center mb-6">
+    <div class="flex items-center" id="data-controls">
+      <a
+        href="/windrose/windrose_template.csv"
+        download
+        class="px-4 py-2 mr-4 bg-gray-300 text-black rounded-md hover:bg-gray-400 focus:outline-none cursor-pointer font-medium transition-colors"
+        style="color: black"
+        title="Download CSV Template"
+      >
+        📥 Download CSV Template
+      </a>
+      <label
+        for="fileUpload"
+        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-800 focus:outline-none cursor-pointer font-medium transition-colors"
+      >
+        📁 Upload CSV File
+      </label>
+      <input type="file" id="fileUpload" accept=".csv" class="hidden" />
     </div>
+  </div>
 
-    <!-- Table and Graph Side by Side (conditionally rendered) -->
-    <div id="windrose-visuals" style="display:none">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 mx-6">
-            <!-- Table Section -->
-            <div>
-                <h4>Table</h4>
-                <div
-                    class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm"
-                    style="height:auto;overflow:visible;"
-                >
-                    <div
-                        id="windrose-table-plot"
-                        style="width: 100%;height:auto;overflow:visible;"
-                    >
-                    </div>
-                </div>
-            </div>
-            <!-- Chart Section -->
-            <div>
-                <h4>Chart</h4>
-                <div
-                    class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm"
-                >
-                    <div id="windrose-plot" style="height: 600px; width: 100%">
-                    </div>
-                </div>
-            </div>
+  <!-- Table and Graph Side by Side (conditionally rendered) -->
+  <div id="windrose-visuals" style="display:none">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 mx-6">
+      <!-- Table Section -->
+      <div>
+        <h4>Table</h4>
+        <div
+          class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm"
+          style="height:auto;overflow:visible;"
+        >
+          <div
+            id="windrose-table-plot"
+            style="width: 100%;height:auto;overflow:visible;"
+          >
+          </div>
         </div>
+      </div>
+      <!-- Chart Section -->
+      <div>
+        <h4>Chart</h4>
+        <div class="bg-white border-2 border-gray-300 rounded-lg p-4 shadow-sm">
+          <div id="windrose-plot" style="height: 600px; width: 100%"></div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Instructions Section -->
-    <div
-        class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 shadow-sm mx-6"
-    >
-        <h4 class="text-lg font-medium text-blue-600 mb-2">Instructions:</h4>
-        <ul class="text-blue-600 space-y-1">
-            <li>
-                • Configure compass points (4, 8, 16), minimum-maximum speed,
-                and bin size
-            </li>
-            <li>
-                • Upload a CSV file with columns: <code>wind_direction</code> [deg]
-                and <code>wind_speed</code> [m/s].
-            </li>
-            <li>
-                • You can also download the CSV template, fill it with your data, 
-                and upload it back. 
-            <li>
-                • The table shows the percentage of data points in each
-                direction/speed bin
-            </li>
-            <li>
-                • The wind rose diagram displays the frequency distribution with
-                each color representing a speed bin
-            </li>
-            <li>• Use Plotly controls to download the table or chart as PNG</li>
-        </ul>
-    </div>
-</div>
-<script>
+  <!-- Instructions Section -->
+  <div
+    class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 shadow-sm mx-6"
+  >
+    <h4 class="text-lg font-medium text-blue-600 mb-2">Instructions:</h4>
+    <ul class="text-blue-600 space-y-1">
+      <li>
+        • Configure compass points (4, 8, 16), minimum-maximum speed, and bin
+        size
+      </li>
+      <li>
+        • Upload a CSV file with columns: <code>wind_direction</code> [deg] and <code
+          >wind_speed</code
+        > [m/s].
+      </li>
+      <li>
+        • You can also download the CSV template, fill it with your data, and
+        upload it back.
+        <li>
+          • The table shows the percentage of data points in each
+          direction/speed bin
+        </li>
+        <li>
+          • The wind rose diagram displays the frequency distribution with each
+          color representing a speed bin
+        </li>
+        <li>• Use Plotly controls to download the table or chart as PNG</li>
+      </li>
+    </ul>
+  </div>
+  <script>
     import Plotly from "plotly.js-dist-min";
 
     const COMPASS_BINS: Record<number, string[]> = {
-        4: ["N", "E", "S", "W"],
-        8: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
-        16: [
-            "N",
-            "NNE",
-            "NE",
-            "ENE",
-            "E",
-            "ESE",
-            "SE",
-            "SSE",
-            "S",
-            "SSW",
-            "SW",
-            "WSW",
-            "W",
-            "WNW",
-            "NW",
-            "NNW",
-        ],
+      4: ["N", "E", "S", "W"],
+      8: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+      16: [
+        "N",
+        "NNE",
+        "NE",
+        "ENE",
+        "E",
+        "ESE",
+        "SE",
+        "SSE",
+        "S",
+        "SSW",
+        "SW",
+        "WSW",
+        "W",
+        "WNW",
+        "NW",
+        "NNW",
+      ],
     };
 
     interface WindDataPoint {
-        wind_direction: number;
-        wind_speed: number;
+      wind_direction: number;
+      wind_speed: number;
     }
 
     let binCount = 8;
     let minSpeed = 0;
     let maxSpeed = 10;
     let binSize = 2;
-    let directionMode = 'to';
+    let directionMode = "to";
     let windData = [];
     // Plotly qualitative color schemes
     const COLOR_SCHEMES = {
-        'Plotly': ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"],
-        'D3': ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
-        'G10': ["#3366CC", "#DC3912", "#FF9900", "#109618", "#990099", "#0099C6", "#DD4477", "#66AA00", "#B82E2E", "#316395"],
-        'T10': ["#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F", "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC"],
-        'Alphabet': ["#AA0DFE", "#3283FE", "#85660D", "#782AB6", "#565656", "#1C8356", "#16FF32", "#F7E1A0", "#E2E2E2", "#1CBE4F", "#C4451C", "#DEA0FD", "#FE00FA", "#325A9B", "#FEAF16", "#F8A19F", "#90AD1C", "#F6222E", "#1CFFCE", "#2ED9FF", "#B10DA1", "#C075A6", "#FC1CBF", "#B00068", "#FBE426", "#FA0087"],
+      Plotly: [
+        "#636efa",
+        "#EF553B",
+        "#00cc96",
+        "#ab63fa",
+        "#FFA15A",
+        "#19d3f3",
+        "#FF6692",
+        "#B6E880",
+        "#FF97FF",
+        "#FECB52",
+      ],
+      D3: [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728",
+        "#9467bd",
+        "#8c564b",
+        "#e377c2",
+        "#7f7f7f",
+        "#bcbd22",
+        "#17becf",
+      ],
+      G10: [
+        "#3366CC",
+        "#DC3912",
+        "#FF9900",
+        "#109618",
+        "#990099",
+        "#0099C6",
+        "#DD4477",
+        "#66AA00",
+        "#B82E2E",
+        "#316395",
+      ],
+      T10: [
+        "#4E79A7",
+        "#F28E2B",
+        "#E15759",
+        "#76B7B2",
+        "#59A14F",
+        "#EDC948",
+        "#B07AA1",
+        "#FF9DA7",
+        "#9C755F",
+        "#BAB0AC",
+      ],
+      Alphabet: [
+        "#AA0DFE",
+        "#3283FE",
+        "#85660D",
+        "#782AB6",
+        "#565656",
+        "#1C8356",
+        "#16FF32",
+        "#F7E1A0",
+        "#E2E2E2",
+        "#1CBE4F",
+        "#C4451C",
+        "#DEA0FD",
+        "#FE00FA",
+        "#325A9B",
+        "#FEAF16",
+        "#F8A19F",
+        "#90AD1C",
+        "#F6222E",
+        "#1CFFCE",
+        "#2ED9FF",
+        "#B10DA1",
+        "#C075A6",
+        "#FC1CBF",
+        "#B00068",
+        "#FBE426",
+        "#FA0087",
+      ],
     };
-    let selectedColorScheme = 'Plotly';
+    let selectedColorScheme = "Plotly";
     let colorSchemeDropdownVisible = false;
 
     // Generate sample wind data
     function generateSampleWindData(count: number): WindDataPoint[] {
-        const data: WindDataPoint[] = [];
-        for (let i = 0; i < count; i++) {
-            const direction = Math.random() * 360;
-            const speedRand = Math.random();
-            const speed = Math.pow(speedRand, 1.5) * maxSpeed;
-            data.push({
-                wind_direction: direction,
-                wind_speed: Math.max(0, speed),
-            });
-        }
-        return data;
+      const data: WindDataPoint[] = [];
+      for (let i = 0; i < count; i++) {
+        const direction = Math.random() * 360;
+        const speedRand = Math.random();
+        const speed = Math.pow(speedRand, 1.5) * maxSpeed;
+        data.push({
+          wind_direction: direction,
+          wind_speed: Math.max(0, speed),
+        });
+      }
+      return data;
     }
 
     // Determine which compass bin a direction falls into
     function getDirectionBin(direction: number, bins: string[]): string {
-        const binSize = 360 / bins.length;
-        const offset = binSize / 2;
+      const binSize = 360 / bins.length;
+      const offset = binSize / 2;
 
-        // Adjust for North being at 0°/360°
-        const adjusted = (direction + offset) % 360;
-        const binIndex = Math.floor(adjusted / binSize);
+      // Adjust for North being at 0°/360°
+      const adjusted = (direction + offset) % 360;
+      const binIndex = Math.floor(adjusted / binSize);
 
-        return bins[binIndex];
+      return bins[binIndex];
     }
 
     // Determine which speed bin a speed falls into
     function getSpeedBin(speed: number): string | null {
-        if (speed < minSpeed || speed > maxSpeed) return null;
+      if (speed < minSpeed || speed > maxSpeed) return null;
 
-        const binIndex = Math.floor((speed - minSpeed) / binSize);
-        const binStart = minSpeed + binIndex * binSize;
-        const binEnd = Math.min(binStart + binSize, maxSpeed);
+      const binIndex = Math.floor((speed - minSpeed) / binSize);
+      const binStart = minSpeed + binIndex * binSize;
+      const binEnd = Math.min(binStart + binSize, maxSpeed);
 
-        return `${binStart.toFixed(1)}-${binEnd.toFixed(1)}`;
+      return `${binStart.toFixed(1)}-${binEnd.toFixed(1)}`;
     }
 
     // Flip wind direction by 180 degrees (convert 'from' to 'to' or vice versa)
     function flipWindDirection(direction: number): number {
-        return (direction + 180) % 360;
+      return (direction + 180) % 360;
     }
 
     // Process wind data into frequency table with percentages
     function processWindData(data: WindDataPoint[]): Record<string, any>[] {
-        const directions = COMPASS_BINS[binCount];
-        const totalPoints = data.length;
+      const directions = COMPASS_BINS[binCount];
+      const totalPoints = data.length;
 
-        // Initialize table with zeros
-        const table: Record<string, any>[] = directions.map((dir) => {
-            const row: Record<string, any> = { direction: dir };
-            const numBins = Math.ceil((maxSpeed - minSpeed) / binSize);
-            for (let i = 0; i < numBins; i++) {
-                const binStart = minSpeed + i * binSize;
-                const binEnd = Math.min(binStart + binSize, maxSpeed);
-                row[`${binStart.toFixed(1)}-${binEnd.toFixed(1)}`] = 0;
-            }
-            return row;
+      // Initialize table with zeros
+      const table: Record<string, any>[] = directions.map((dir) => {
+        const row: Record<string, any> = { direction: dir };
+        const numBins = Math.ceil((maxSpeed - minSpeed) / binSize);
+        for (let i = 0; i < numBins; i++) {
+          const binStart = minSpeed + i * binSize;
+          const binEnd = Math.min(binStart + binSize, maxSpeed);
+          row[`${binStart.toFixed(1)}-${binEnd.toFixed(1)}`] = 0;
+        }
+        return row;
+      });
+
+      // Count data points in each bin
+      data.forEach((point) => {
+        let direction = point.wind_direction;
+
+        if (directionMode === "from") {
+          direction = flipWindDirection(direction);
+        }
+
+        const dirBin = getDirectionBin(direction, directions);
+        const speedBin = getSpeedBin(point.wind_speed);
+
+        if (speedBin) {
+          const rowIndex = directions.indexOf(dirBin);
+          if (rowIndex !== -1) {
+            table[rowIndex][speedBin]++;
+          }
+        }
+      });
+
+      // Convert counts to percentages
+      table.forEach((row) => {
+        Object.keys(row).forEach((key) => {
+          if (key !== "direction") {
+            row[key] = ((row[key] / totalPoints) * 100).toFixed(2);
+          }
         });
+      });
 
-        // Count data points in each bin
-        data.forEach((point) => {
-            let direction = point.wind_direction;
-            
-            if (directionMode === 'from') {
-                direction = flipWindDirection(direction);
-            }
-            
-            const dirBin = getDirectionBin(direction, directions);
-            const speedBin = getSpeedBin(point.wind_speed);
-
-            if (speedBin) {
-                const rowIndex = directions.indexOf(dirBin);
-                if (rowIndex !== -1) {
-                    table[rowIndex][speedBin]++;
-                }
-            }
-        });
-
-        // Convert counts to percentages
-        table.forEach((row) => {
-            Object.keys(row).forEach((key) => {
-                if (key !== "direction") {
-                    row[key] = ((row[key] / totalPoints) * 100).toFixed(2);
-                }
-            });
-        });
-
-        return table;
+      return table;
     }
 
     function renderWindrose(table: Record<string, any>[]) {
-        // Use selected color scheme
-        const colors = COLOR_SCHEMES[selectedColorScheme] || COLOR_SCHEMES['Plotly'];
+      // Use selected color scheme
+      const colors =
+        COLOR_SCHEMES[selectedColorScheme] || COLOR_SCHEMES["Plotly"];
 
-        const speedBins = Object.keys(table[0]).filter(
-            (key) => key !== "direction",
-        );
+      const speedBins = Object.keys(table[0]).filter(
+        (key) => key !== "direction"
+      );
 
-        const traces = speedBins.map((speedBin: string, idx: number) => ({
-            r: table.map((row: Record<string, any>) =>
-                parseFloat(row[speedBin]),
-            ),
-            theta: table.map((row: Record<string, any>) => row.direction),
-            name: speedBin + " m/s",
-            type: "barpolar",
-            marker: {
-                color: colors[idx % colors.length],
-                line: { color: "white", width: 1 },
-            },
-        }));
+      const traces = speedBins.map((speedBin: string, idx: number) => ({
+        r: table.map((row: Record<string, any>) => parseFloat(row[speedBin])),
+        theta: table.map((row: Record<string, any>) => row.direction),
+        name: speedBin + " m/s",
+        type: "barpolar",
+        marker: {
+          color: colors[idx % colors.length],
+          line: { color: "white", width: 1 },
+        },
+      }));
 
-        const maxPercentage = Math.max(
-            ...table.map((row: Record<string, any>) =>
-                speedBins.reduce(
-                    (sum: number, bin: string) => sum + parseFloat(row[bin]),
-                    0,
-                ),
-            ),
-        );
+      const maxPercentage = Math.max(
+        ...table.map((row: Record<string, any>) =>
+          speedBins.reduce(
+            (sum: number, bin: string) => sum + parseFloat(row[bin]),
+            0
+          )
+        )
+      );
 
-        const layout = {
-            title: "Wind Rose Diagram (Frequency Distribution %)",
-            font: { size: 14 },
-            polar: {
-                radialaxis: {
-                    visible: true,
-                    range: [0, Math.ceil(maxPercentage / 5) * 5],
-                    ticksuffix: "%",
-                },
-                angularaxis: {
-                    direction: "clockwise",
-                    period: binCount,
-                },
-            },
-            showlegend: true,
-            legend: {
-                orientation: "h",
-                x: 0.5,
-                y: -0.2,
-                xanchor: "center"
-            },
-            barmode: "stack",
-        };
+      const layout = {
+        title: "Wind Rose Diagram (Frequency Distribution %)",
+        font: { size: 14 },
+        polar: {
+          radialaxis: {
+            visible: true,
+            range: [0, Math.ceil(maxPercentage / 5) * 5],
+            ticksuffix: "%",
+          },
+          angularaxis: {
+            direction: "clockwise",
+            period: binCount,
+          },
+        },
+        showlegend: true,
+        legend: {
+          orientation: "h",
+          x: 0.5,
+          y: -0.2,
+          xanchor: "center",
+        },
+        barmode: "stack",
+      };
 
-        Plotly.newPlot("windrose-plot", traces as any, layout as any, {
-            responsive: true,
-        });
+      Plotly.newPlot("windrose-plot", traces as any, layout as any, {
+        responsive: true,
+      });
     }
 
     function renderPlotlyTable(table) {
-        const speedBins = Object.keys(table[0]).filter(
-            (key) => key !== "direction",
-        );
-        const headerValues = [
-            "Direction",
-            ...speedBins.map((bin) => bin + " m/s"),
-        ];
-        const cellValues = [
-            table.map((row) => row.direction),
-            ...speedBins.map((bin) => table.map((row) => row[bin] + "%")),
-        ];
-        const rowCount = table.length;
-        const rowHeight = 40;
-        const totalHeight = rowHeight * (rowCount + 1.2); // +1 for header
-        // Set cell background: first column light grey, rest white
-        const cellFillColors = [
-            Array(rowCount).fill("#f3f4f6"), // Tailwind gray-100
-            ...Array(speedBins.length).fill(Array(rowCount).fill("#fff")),
-        ];
-        const data = [
-            {
-                type: "table",
-                header: {
-                    values: headerValues,
-                    align: Array(headerValues.length).fill("center"),
-                    line: { width: 1, color: "gray" },
-                    fill: {
-                        color: Array(headerValues.length).fill("lightblue"),
-                    },
-                    font: { family: "Arial", size: 14, color: "black" },
-                    height: rowHeight,
-                },
-                cells: {
-                    values: cellValues,
-                    align: Array(headerValues.length).fill("center"),
-                    line: { color: "gray", width: 1 },
-                    fill: { color: cellFillColors },
-                    font: { family: "Arial", size: 14, color: "black" },
-                    height: rowHeight,
-                },
+      const speedBins = Object.keys(table[0]).filter(
+        (key) => key !== "direction"
+      );
+      const headerValues = [
+        "Direction",
+        ...speedBins.map((bin) => bin + " m/s"),
+      ];
+      const cellValues = [
+        table.map((row) => row.direction),
+        ...speedBins.map((bin) => table.map((row) => row[bin] + "%")),
+      ];
+      const rowCount = table.length;
+      const rowHeight = 40;
+      const totalHeight = rowHeight * (rowCount + 1.2); // +1 for header
+      // Set cell background: first column light grey, rest white
+      const cellFillColors = [
+        Array(rowCount).fill("#f3f4f6"), // Tailwind gray-100
+        ...Array(speedBins.length).fill(Array(rowCount).fill("#fff")),
+      ];
+      const data = [
+        {
+          type: "table",
+          header: {
+            values: headerValues,
+            align: Array(headerValues.length).fill("center"),
+            line: { width: 1, color: "gray" },
+            fill: {
+              color: Array(headerValues.length).fill("lightblue"),
             },
-        ];
-        const layout = {
-            margin: { t: 2, l: 2, r: 2, b: 2 },
-            autosize: true,
-            width:
-                document.getElementById("windrose-table-plot")?.offsetWidth ||
-                600,
-            height: totalHeight,
-        };
-        Plotly.newPlot("windrose-table-plot", data, layout, {
-            responsive: true,
-        });
+            font: { family: "Arial", size: 14, color: "black" },
+            height: rowHeight,
+          },
+          cells: {
+            values: cellValues,
+            align: Array(headerValues.length).fill("center"),
+            line: { color: "gray", width: 1 },
+            fill: { color: cellFillColors },
+            font: { family: "Arial", size: 14, color: "black" },
+            height: rowHeight,
+          },
+        },
+      ];
+      const layout = {
+        margin: { t: 2, l: 2, r: 2, b: 2 },
+        autosize: true,
+        width:
+          document.getElementById("windrose-table-plot")?.offsetWidth || 600,
+        height: totalHeight,
+      };
+      Plotly.newPlot("windrose-table-plot", data, layout, {
+        responsive: true,
+      });
     }
 
     function updateVisualization() {
-        const visuals = document.getElementById("windrose-visuals");
-        const resetBtn = document.getElementById("resetBtn");
-        const generateDataBtn = document.getElementById("generateDataBtn");
-        const fileUploadLabel = document.querySelector(
-            "label[for='fileUpload']",
-        );
-        const dataControlsSection = document.getElementById(
-            "data-controls-section",
-        );
-        if (windData.length === 0) {
-            if (dataControlsSection) dataControlsSection.style.display = "flex";
-            if (visuals) visuals.style.display = "none";
-            if (resetBtn) resetBtn.style.display = "none";
-            if (generateDataBtn) generateDataBtn.style.display = "";
-            if (fileUploadLabel) fileUploadLabel.style.display = "";
-            return;
-        }
-        if (dataControlsSection) dataControlsSection.style.display = "none";
-        if (visuals) visuals.style.display = "block";
-        if (resetBtn) resetBtn.style.display = "inline-block";
-        if (generateDataBtn) generateDataBtn.style.display = "none";
-        if (fileUploadLabel) fileUploadLabel.style.display = "none";
-        const table = processWindData(windData);
-        renderWindrose(table);
-        renderPlotlyTable(table);
+      const visuals = document.getElementById("windrose-visuals");
+      const resetBtn = document.getElementById("resetBtn");
+      const generateDataBtn = document.getElementById("generateDataBtn");
+      const fileUploadLabel = document.querySelector("label[for='fileUpload']");
+      const dataControlsSection = document.getElementById(
+        "data-controls-section"
+      );
+      if (windData.length === 0) {
+        if (dataControlsSection) dataControlsSection.style.display = "flex";
+        if (visuals) visuals.style.display = "none";
+        if (resetBtn) resetBtn.style.display = "none";
+        if (generateDataBtn) generateDataBtn.style.display = "";
+        if (fileUploadLabel) fileUploadLabel.style.display = "";
+        return;
+      }
+      if (dataControlsSection) dataControlsSection.style.display = "none";
+      if (visuals) visuals.style.display = "block";
+      if (resetBtn) resetBtn.style.display = "inline-block";
+      if (generateDataBtn) generateDataBtn.style.display = "none";
+      if (fileUploadLabel) fileUploadLabel.style.display = "none";
+      const table = processWindData(windData);
+      renderWindrose(table);
+      renderPlotlyTable(table);
     }
 
     // Event listeners
-        // Color scheme dropdown logic
-        function createColorSchemeDropdown() {
-            let dropdown = document.getElementById('colorSchemeDropdown');
-            if (dropdown) dropdown.remove();
-            dropdown = document.createElement('div');
-            dropdown.id = 'colorSchemeDropdown';
-            dropdown.style.position = 'absolute';
-            dropdown.style.top = '110%';
-            dropdown.style.right = '0';
-            dropdown.style.background = 'white';
-            dropdown.style.border = '1px solid #d1d5db';
-            dropdown.style.borderRadius = '0.375rem';
-            dropdown.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-            dropdown.style.zIndex = '1000';
-            dropdown.style.minWidth = '160px';
-            dropdown.style.padding = '0.5rem 0';
-            Object.keys(COLOR_SCHEMES).forEach((scheme) => {
-                const item = document.createElement('button');
-                item.textContent = scheme;
-                item.style.display = 'flex';
-                item.style.alignItems = 'center';
-                item.style.width = '100%';
-                item.style.padding = '0.5rem 1rem';
-                item.style.background = 'none';
-                item.style.border = 'none';
-                item.style.cursor = 'pointer';
-                item.style.fontWeight = scheme === selectedColorScheme ? 'bold' : 'normal';
-                item.style.backgroundColor = scheme === selectedColorScheme ? '#e5e7eb' : 'transparent';
-                // Color swatch
-                const swatch = document.createElement('span');
-                swatch.style.display = 'inline-block';
-                swatch.style.width = '1.5rem';
-                swatch.style.height = '1rem';
-                swatch.style.marginRight = '0.5rem';
-                swatch.style.borderRadius = '0.25rem';
-                swatch.style.background = `linear-gradient(90deg, ${COLOR_SCHEMES[scheme].join(',')})`;
-                item.prepend(swatch);
-                item.onclick = () => {
-                    selectedColorScheme = scheme;
-                    colorSchemeDropdownVisible = false;
-                    document.getElementById('colorSchemeDropdown')?.remove();
-                    updateVisualization();
-                };
-                dropdown.appendChild(item);
-            });
-            // Close on click outside
-            setTimeout(() => {
-                function handleClickOutside(e) {
-                    if (!dropdown.contains(e.target) && e.target.id !== 'colorSchemeBtn') {
-                        dropdown.remove();
-                        colorSchemeDropdownVisible = false;
-                        document.removeEventListener('mousedown', handleClickOutside);
-                    }
-                }
-                document.addEventListener('mousedown', handleClickOutside);
-            }, 0);
-            return dropdown;
+    // Color scheme dropdown logic
+    function createColorSchemeDropdown() {
+      let dropdown = document.getElementById("colorSchemeDropdown");
+      if (dropdown) dropdown.remove();
+      dropdown = document.createElement("div");
+      dropdown.id = "colorSchemeDropdown";
+      dropdown.style.position = "absolute";
+      dropdown.style.top = "110%";
+      dropdown.style.right = "0";
+      dropdown.style.background = "white";
+      dropdown.style.border = "1px solid #d1d5db";
+      dropdown.style.borderRadius = "0.375rem";
+      dropdown.style.boxShadow = "0 2px 8px rgba(0,0,0,0.08)";
+      dropdown.style.zIndex = "1000";
+      dropdown.style.minWidth = "160px";
+      dropdown.style.padding = "0.5rem 0";
+      Object.keys(COLOR_SCHEMES).forEach((scheme) => {
+        const item = document.createElement("button");
+        item.textContent = scheme;
+        item.style.display = "flex";
+        item.style.alignItems = "center";
+        item.style.width = "100%";
+        item.style.padding = "0.5rem 1rem";
+        item.style.background = "none";
+        item.style.border = "none";
+        item.style.cursor = "pointer";
+        item.style.fontWeight =
+          scheme === selectedColorScheme ? "bold" : "normal";
+        item.style.backgroundColor =
+          scheme === selectedColorScheme ? "#e5e7eb" : "transparent";
+        // Color swatch
+        const swatch = document.createElement("span");
+        swatch.style.display = "inline-block";
+        swatch.style.width = "1.5rem";
+        swatch.style.height = "1rem";
+        swatch.style.marginRight = "0.5rem";
+        swatch.style.borderRadius = "0.25rem";
+        swatch.style.background = `linear-gradient(90deg, ${COLOR_SCHEMES[scheme].join(",")})`;
+        item.prepend(swatch);
+        item.onclick = () => {
+          selectedColorScheme = scheme;
+          colorSchemeDropdownVisible = false;
+          document.getElementById("colorSchemeDropdown")?.remove();
+          updateVisualization();
+        };
+        dropdown.appendChild(item);
+      });
+      // Close on click outside
+      setTimeout(() => {
+        function handleClickOutside(e) {
+          if (
+            !dropdown.contains(e.target) &&
+            e.target.id !== "colorSchemeBtn"
+          ) {
+            dropdown.remove();
+            colorSchemeDropdownVisible = false;
+            document.removeEventListener("mousedown", handleClickOutside);
+          }
         }
+        document.addEventListener("mousedown", handleClickOutside);
+      }, 0);
+      return dropdown;
+    }
 
-        document.getElementById('colorSchemeBtn')?.addEventListener('click', (e) => {
-            if (colorSchemeDropdownVisible) {
-                document.getElementById('colorSchemeDropdown')?.remove();
-                colorSchemeDropdownVisible = false;
-                return;
-            }
-            const parent = document.getElementById('colorSchemeBtn').parentElement;
-            const dropdown = createColorSchemeDropdown();
-            parent.appendChild(dropdown);
-            colorSchemeDropdownVisible = true;
-        });
+    document
+      .getElementById("colorSchemeBtn")
+      ?.addEventListener("click", (e) => {
+        if (colorSchemeDropdownVisible) {
+          document.getElementById("colorSchemeDropdown")?.remove();
+          colorSchemeDropdownVisible = false;
+          return;
+        }
+        const parent = document.getElementById("colorSchemeBtn").parentElement;
+        const dropdown = createColorSchemeDropdown();
+        parent.appendChild(dropdown);
+        colorSchemeDropdownVisible = true;
+      });
     document.getElementById("binCount")?.addEventListener("change", (e) => {
-        binCount = parseInt((e.target as HTMLSelectElement).value);
-        updateVisualization();
+      binCount = parseInt((e.target as HTMLSelectElement).value);
+      updateVisualization();
     });
 
     document.getElementById("minSpeed")?.addEventListener("input", (e) => {
-        minSpeed = parseFloat((e.target as HTMLInputElement).value);
-        updateVisualization();
+      minSpeed = parseFloat((e.target as HTMLInputElement).value);
+      updateVisualization();
     });
 
     document.getElementById("maxSpeed")?.addEventListener("input", (e) => {
-        maxSpeed = parseFloat((e.target as HTMLInputElement).value);
-        updateVisualization();
+      maxSpeed = parseFloat((e.target as HTMLInputElement).value);
+      updateVisualization();
     });
 
     document.getElementById("binSize")?.addEventListener("input", (e) => {
-        binSize = parseFloat((e.target as HTMLInputElement).value);
-        updateVisualization();
-    });
-
-    document.getElementById("directionMode")?.addEventListener("change", (e) => {
-        directionMode = (e.target as HTMLSelectElement).value;
-        updateVisualization();
-    });
-
-    document.getElementById("fileUpload")?.addEventListener("change", (e) => {
-        const file = (e.target as HTMLInputElement).files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const text = event.target?.result;
-                if (typeof text === "string") {
-                    const lines = text
-                        .split("\n")
-                        .filter((line) => line.trim() !== "");
-                    const uploadedData = lines.map((line) => {
-                        const [wind_direction, wind_speed] = line
-                            .split(",")
-                            .map((val) => parseFloat(val.trim()));
-                        return { wind_direction, wind_speed };
-                    });
-                    windData = uploadedData;
-                    updateVisualization();
-                }
-            };
-            reader.readAsText(file);
-        }
+      binSize = parseFloat((e.target as HTMLInputElement).value);
+      updateVisualization();
     });
 
     document
-        .getElementById("generateDataBtn")
-        ?.addEventListener("click", () => {
-            windData = generateSampleWindData(500);
+      .getElementById("directionMode")
+      ?.addEventListener("change", (e) => {
+        directionMode = (e.target as HTMLSelectElement).value;
+        updateVisualization();
+      });
+
+    document.getElementById("fileUpload")?.addEventListener("change", (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const text = event.target?.result;
+          if (typeof text === "string") {
+            const lines = text.split("\n").filter((line) => line.trim() !== "");
+            const uploadedData = lines.map((line) => {
+              const [wind_direction, wind_speed] = line
+                .split(",")
+                .map((val) => parseFloat(val.trim()));
+              return { wind_direction, wind_speed };
+            });
+            windData = uploadedData;
             updateVisualization();
-        });
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    document
+      .getElementById("generateDataBtn")
+      ?.addEventListener("click", () => {
+        windData = generateSampleWindData(500);
+        updateVisualization();
+      });
 
     document.getElementById("resetBtn")?.addEventListener("click", () => {
-        windData = [];
-        binCount = 8;
-        minSpeed = 0;
-        maxSpeed = 10;
-        binSize = 2;
-        directionMode = 'to';
-        document.getElementById("binCount")!.value = "8";
-        document.getElementById("minSpeed")!.value = "0";
-        document.getElementById("maxSpeed")!.value = "10";
-        document.getElementById("binSize")!.value = "2";
-        document.getElementById("directionMode")!.value = "to";
-        const fileInput = document.getElementById("fileUpload") as HTMLInputElement;
-        if (fileInput) fileInput.value = "";
-        updateVisualization();
+      windData = [];
+      binCount = 8;
+      minSpeed = 0;
+      maxSpeed = 10;
+      binSize = 2;
+      directionMode = "to";
+      document.getElementById("binCount")!.value = "8";
+      document.getElementById("minSpeed")!.value = "0";
+      document.getElementById("maxSpeed")!.value = "10";
+      document.getElementById("binSize")!.value = "2";
+      document.getElementById("directionMode")!.value = "to";
+      const fileInput = document.getElementById(
+        "fileUpload"
+      ) as HTMLInputElement;
+      if (fileInput) fileInput.value = "";
+      updateVisualization();
     });
-</script>
+  </script>
+</div>
