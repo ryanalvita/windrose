@@ -12,7 +12,7 @@ This is a web application for visualizing windrose data, built with [Astro](http
 ## Project Structure
 
 - `src/components/`: UI components (Windrose, Chart, Table, Header, Footer, etc.)
-- `src/pages/`: Main pages (index, about, support)
+- `src/pages/`: Main pages (home, feedback, support)
 - `src/layouts/`: Layout templates
 - `public/`: Static assets (fonts, images)
 - `astro.config.mjs`, `tsconfig.json`, `package.json`: Config and dependencies
