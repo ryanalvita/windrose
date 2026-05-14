@@ -1,0 +1,257 @@
+---
+// No imports needed in frontmatter
+---
+
+<div
+  class="bg-gray-50 border-2 border-gray-200 rounded-lg p-6 shadow-sm mx-6 my-6"
+>
+  <h4 class="text-lg font-medium mb-4">FAQ:</h4>
+
+  <details class="mb-1">
+    <summary
+      class="font-medium cursor-pointer list-none flex items-center justify-between"
+    >
+      What is a Wind Rose?
+      <span class="faq-toggle">+</span>
+    </summary>
+    <p class="text-lg mt-2 pl-2 leading-relaxed">
+      A <strong>wind rose</strong> is a circular diagram that shows the distribution
+      of wind direction and wind speed at a particular location over a specific period
+      of time. Each spoke represents a compass direction, and the length of each spoke
+      indicates the frequency or magnitude of wind from that direction. Different
+      colors typically represent different wind speed ranges, making it easy to identify
+      patterns at a glance.
+    </p>
+  </details>
+
+  <details class="mb-1">
+    <summary
+      class="font-medium cursor-pointer list-none flex items-center justify-between"
+    >
+      Why Use Wind Rose Charts?
+      <span class="faq-toggle">+</span>
+    </summary>
+    <p class="text-lg mt-2 pl-2 leading-relaxed">
+      Wind rose charts are invaluable for understanding wind patterns in your
+      location or region. They help professionals and researchers quickly
+      identify dominant wind directions and typical wind speeds, which is
+      essential for applications ranging from weather forecasting to wind farm
+      planning.
+    </p>
+  </details>
+
+  <details class="mb-1">
+    <summary
+      class="font-medium cursor-pointer list-none flex items-center justify-between"
+    >
+      Common Applications
+      <span class="faq-toggle">+</span>
+    </summary>
+    <div class="text-lg mt-2 pl-2 leading-relaxed">
+      <ul class="space-y-1">
+        <li>
+          <strong>Meteorology &amp; Weather Studies</strong> — Analyze historical
+          weather patterns, seasonal variations, and climate research.
+        </li>
+        <li>
+          <strong>Sailing &amp; Marine Navigation</strong> — Plan routes, understand
+          prevailing winds, and optimize sailing strategies.
+        </li>
+        <li>
+          <strong>Wind Energy &amp; Renewable Energy</strong> — Assess wind farm site
+          viability, turbine placement, and energy generation potential.
+        </li>
+        <li>
+          <strong>Air Quality &amp; Pollution Studies</strong> — Track pollutant dispersion
+          patterns and identify pollution sources.
+        </li>
+        <li>
+          <strong>Data Analysis &amp; Visualization</strong> — Visualize directional
+          data in GIS, environmental monitoring, and research.
+        </li>
+        <li>
+          <strong>Agriculture &amp; Environmental Management</strong> — Understand
+          local wind patterns for crop growth, pesticide application, and erosion
+          control.
+        </li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="mb-1">
+    <summary
+      class="font-medium cursor-pointer list-none flex items-center justify-between"
+    >
+      How to Use
+      <span class="faq-toggle">+</span>
+    </summary>
+    <div class="text-lg mt-2 pl-2 leading-relaxed">
+      <ol class="space-y-1">
+        <li>
+          <strong>Prepare CSV Data</strong> — Gather your wind data in CSV format
+          with columns for direction and speed.
+        </li>
+        <li>
+          <strong>Upload</strong> — Click the "Upload CSV File" button to upload your
+          file.
+        </li>
+        <li>
+          <strong>Configure</strong> — Adjust compass points, speed range, bin size,
+          and direction mode.
+        </li>
+        <li>
+          <strong>Generate</strong> — Instantly create your wind rose chart.
+        </li>
+        <li>
+          <strong>Download or Share</strong> — Save your chart as a PNG image using
+          Plotly controls.
+        </li>
+      </ol>
+      <p class="mt-2">No installation required, no software purchase needed.</p>
+    </div>
+  </details>
+
+  <details class="mb-1">
+    <summary
+      class="font-medium cursor-pointer list-none flex items-center justify-between"
+    >
+      Data Format Requirements
+      <span class="faq-toggle">+</span>
+    </summary>
+    <div class="text-lg mt-2 pl-2 leading-relaxed">
+      <p>Your CSV file should include at minimum:</p>
+      <ul class="space-y-1 mt-1">
+        <li>A column for wind direction (in degrees, 0–360)</li>
+        <li>A column for wind speed (in your preferred units)</li>
+        <li>
+          Optional: frequency, temperature, or other metadata columns (ignored
+          during processing)
+        </li>
+      </ul>
+      <p class="mt-2">
+        Most datasets from weather stations, meteorological services, and
+        research organizations follow this standard format and can be used
+        directly.
+      </p>
+    </div>
+  </details>
+
+  <details class="mb-1">
+    <summary
+      class="font-medium cursor-pointer list-none flex items-center justify-between"
+    >
+      What direction convention does this tool use?
+      <span class="faq-toggle">+</span>
+    </summary>
+    <p class="text-lg mt-2 pl-2 leading-relaxed">
+      This tool uses <strong>meteorological convention</strong>: the direction
+      value represents where the wind <em>comes from</em>. For example, a value
+      of 90° means the wind comes from the east (eastward). You can switch to
+      "To" mode in the settings panel, which reverses this — useful if your
+      dataset uses the opposite convention. In that case, you may also need to
+      add 180° to each value.
+    </p>
+  </details>
+
+  <details class="mb-1">
+    <summary
+      class="font-medium cursor-pointer list-none flex items-center justify-between"
+    >
+      What compass point options are available?
+      <span class="faq-toggle">+</span>
+    </summary>
+    <p class="text-lg mt-2 pl-2 leading-relaxed">
+      You can choose between <strong>4 directions</strong> (N, E, S, W), <strong
+        >8 directions</strong
+      >
+      (N, NE, E, SE, S, SW, W, NW), or <strong>16 directions</strong> (N, NNE, NE,
+      ENE, ...). The more directions you choose, the more granular your wind rose
+      will be. However, for smaller datasets, fewer directions often produce a cleaner
+      and more readable chart.
+    </p>
+  </details>
+
+  <details class="mb-1">
+    <summary
+      class="font-medium cursor-pointer list-none flex items-center justify-between"
+    >
+      Can I customize the color scheme?
+      <span class="faq-toggle">+</span>
+    </summary>
+    <p class="text-lg mt-2 pl-2 leading-relaxed">
+      Yes. Click the <strong>🎨</strong> button to choose from several Plotly and
+      D3 color scales: Plotly, D3, G10, T10, and Alphabet. Each scale is designed
+      for distinct categorical data and works well for distinguishing speed bins in
+      your wind rose chart.
+    </p>
+  </details>
+
+  <details class="mb-1">
+    <summary
+      class="font-medium cursor-pointer list-none flex items-center justify-between"
+    >
+      Is the generator free to use?
+      <span class="faq-toggle">+</span>
+    </summary>
+    <p class="text-lg mt-2 pl-2 leading-relaxed">
+      Yes, this tool is completely <strong>free and open source</strong>. It
+      runs entirely in your browser — your data is never uploaded to any server.
+      You can download the generated chart as a PNG image using the Plotly
+      controls.
+    </p>
+  </details>
+
+  <details class="mb-1">
+    <summary
+      class="font-medium cursor-pointer list-none flex items-center justify-between"
+    >
+      Can I use this on mobile?
+      <span class="faq-toggle">+</span>
+    </summary>
+    <p class="text-lg mt-2 pl-2 leading-relaxed">
+      Yes. The tool is responsive and works on both desktop and mobile devices.
+      However, for the best experience when working with larger CSV files, a
+      desktop or laptop is recommended.
+    </p>
+  </details>
+</div>
+
+<script>
+  // Toggle + / − indicator for FAQ items
+  document.querySelectorAll("details").forEach((details) => {
+    const toggle = details.querySelector(".faq-toggle") as HTMLElement;
+    if (!toggle) return;
+
+    const observer = new MutationObserver(() => {
+      toggle.textContent = details.open ? "−" : "⌄";
+    });
+
+    observer.observe(details, { attributes: true, attributeFilter: ["open"] });
+
+    // Set initial state
+    toggle.textContent = "⌄";
+  });
+</script>
+
+<style>
+  details summary {
+    padding: 0.625rem 0;
+    border-bottom: 1px solid rgb(229 233 240); /* gray-200 */
+  }
+
+  details:last-of-type summary {
+    border-bottom: none;
+  }
+
+  details[open] summary {
+    padding-bottom: 0.5rem;
+  }
+
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details[open] .faq-toggle {
+    transform: rotate(180deg);
+  }
+</style>
